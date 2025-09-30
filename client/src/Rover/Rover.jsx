@@ -1,7 +1,7 @@
-export default function Rover() {
+export default function Navbar() {
   return (
-    <div className="Rover">
-      <h1>Rover Component</h1>
+    <div className="Navbar">
+      <h1>NASA Rover Photos</h1>
     </div>
   );
 }

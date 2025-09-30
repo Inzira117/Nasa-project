@@ -1,3 +1,7 @@
 export default function Navbar() {
-  return <nav></nav>;
+  return (
+    <nav>
+      <h1>NASA Rover Photos</h1>
+    </nav>
+  );
 }
