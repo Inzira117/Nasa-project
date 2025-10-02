@@ -12,7 +12,7 @@ function Rovers() {
       try {
         const res = await fetch(`${API_URL}/rovers`);
         const data = await res.json();
-        setRovers(data.rovers || []); // NASA returns { rovers: [...] }
+        setRovers(data.rovers || []);
       } catch (err) {
         console.error("Error fetching rovers:", err);
       } finally {

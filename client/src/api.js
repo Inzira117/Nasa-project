@@ -6,7 +6,7 @@ export const nasaApiBaseUrl =
 export async function getRovers() {
   try {
     const res = await fetch(
-      "https://api.nasa.gov/mars-photos/api/v1/rovers?api_key=DEMO_KEY"
+      "https://api.nasa.gov/mars-photos/api/v1/rovers?api_key=IcMyvWEjFYsHCcTDcdyjuBfQclCAWxLklTIa5BHe"
     );
     console.log(res);
     if (!res.ok) {
