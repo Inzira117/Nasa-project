@@ -33,7 +33,8 @@ function Rovers() {
 
   return (
     <Container className="mt-4">
-      <h2 className="mb-4">Mars Rovers</h2>
+      <h1 className="mb-4">Mars Perseverance Rover</h1>
+      <h2 className="mb-4">Raw Image of the Week</h2>
       <Row>
         {rovers.map((rover) => (
           <Col md={4} key={rover.id} className="mb-4">
