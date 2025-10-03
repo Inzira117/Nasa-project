@@ -1,7 +1,7 @@
 export default function Navbar() {
   return (
-    <nav>
-      <h1>NASA Rover Photos</h1>
+    <nav className="navbar">
+      <h1 className="navbar-title">NASA Rover Photos</h1>
     </nav>
   );
 }
