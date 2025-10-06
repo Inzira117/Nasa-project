@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Row, Col, Container, Spinner } from "react-bootstrap";
 
-const API_URL = "http://localhost:4000/api";
+const nasaApiBaseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://your-production-server.com/api"
+    : "http://localhost:4000/api";
 
-function Rovers() {
+async function getRovers() {
+  try {
+    const res = await fetch(`${nasaApiBaseUrl}/rovers`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    const data = await res.json();
+    return data.rovers || [];
+  } catch (err) {
+    console.error("Fetch error:", err);
+    return [];
+  }
+}
+
+export default function Rovers() {
   const [rovers, setRovers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchRovers() {
-      try {
-        const res = await fetch(`${API_URL}/rovers`);
-        const data = await res.json();
-        setRovers(data.rovers || []);
-      } catch (err) {
-        console.error("Error fetching rovers:", err);
-      } finally {
-        setLoading(false);
-      }
+    async function loadRovers() {
+      const roverData = await getRovers();
+      setRovers(roverData);
+      setLoading(false);
     }
-    fetchRovers();
+    loadRovers();
   }, []);
 
   if (loading) {
@@ -65,5 +76,3 @@ function Rovers() {
     </Container>
   );
 }
-
-export default Rovers;
