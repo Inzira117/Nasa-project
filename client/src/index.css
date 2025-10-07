@@ -41,3 +41,25 @@ code {
   font-size: 1rem;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
+
+.rover-card {
+  height: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rover-img {
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.rover-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
