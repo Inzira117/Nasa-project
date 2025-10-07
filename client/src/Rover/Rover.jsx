@@ -70,7 +70,11 @@ export default function Rovers() {
 
   return (
     <Container className="mt-4">
-      <h1 className="mb-4">Raw Image of the Week</h1>
+      <h1 className="mb-4">Mars Raw Image of the Week</h1>
+      <p>
+        Here's the Image of the Week as voted on by the public. Check out the
+        latest raw images below, and "Like" your favorites.
+      </p>
 
       <Row>
         {rovers
@@ -80,7 +84,7 @@ export default function Rovers() {
               <Card className="w-100 rover-card">
                 <Card.Img
                   variant="top"
-                  src={Curiosity}
+                  src={`https://placehold.co/400x200?text=${rover.name}`}
                   alt={`${rover.name} rover`}
                   className="rover-img"
                 />
