@@ -44,7 +44,7 @@ code {
 
 .rover-card {
   height: 100%;
-  min-height: 500px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
@@ -53,13 +53,17 @@ code {
 }
 
 .rover-img {
-  height: 300px;
+  height: 200px;
   object-fit: cover;
   width: 100%;
 }
 
-.rover-card .card-body {
+.card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.sticky-top {
+  top: 80px;
 }

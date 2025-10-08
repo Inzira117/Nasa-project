@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Card, Button, Row, Col, Container, Spinner } from "react-bootstrap";
-import Curiosity from "../assets/Curiosity.png";
 
 const nasaApiBaseUrl =
   process.env.NODE_ENV === "production"
@@ -82,12 +81,6 @@ export default function Rovers() {
           .map((rover) => (
             <Col md={4} key={rover.id} className="mb-4 d-flex">
               <Card className="w-100 rover-card">
-                <Card.Img
-                  variant="top"
-                  src={`https://placehold.co/400x200?text=${rover.name}`}
-                  alt={`${rover.name} rover`}
-                  className="rover-img"
-                />
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="text-center mb-3">
                     {rover.name}
@@ -112,31 +105,6 @@ export default function Rovers() {
               </Card>
             </Col>
           ))}
-      </Row>
-      <Row>
-        {photos.length === 0 ? (
-          <p>No photos available for this sol.</p>
-        ) : (
-          photos.map((photo) => (
-            <Col key={photo.id} md={4} className="mb-4">
-              <Card className="h-100">
-                <Card.Img
-                  variant="top"
-                  src={photo.img_src}
-                  alt={`Rover photo from ${name}`}
-                  className="rover-img"
-                />
-                <Card.Body>
-                  <Card.Text>
-                    <strong>Camera:</strong> {photo.camera.full_name}
-                    <br />
-                    <strong>Earth Date:</strong> {photo.earth_date}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
-        )}
       </Row>
     </Container>
   );

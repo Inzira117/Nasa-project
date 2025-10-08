@@ -1,7 +1,15 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <header className="header">
-      <h2 className="header-title">NASA Rover Photos</h2>
+      <Link
+        to="/rovers"
+        className="header-title"
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+        <h2>NASA Rover Photos</h2>
+      </Link>
     </header>
   );
 }
