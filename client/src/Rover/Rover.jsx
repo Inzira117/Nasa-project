@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, Button, Row, Col, Container, Spinner } from "react-bootstrap";
 
 const nasaApiBaseUrl =
@@ -10,9 +10,7 @@ const nasaApiBaseUrl =
 async function getRovers() {
   try {
     const res = await fetch(`${nasaApiBaseUrl}/rovers`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
     const data = await res.json();
     return data.rovers || [];
   } catch (err) {
@@ -24,38 +22,14 @@ async function getRovers() {
 export default function Rovers() {
   const [rovers, setRovers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { name } = useParams();
-  const [photos, setPhotos] = useState([]);
-  const [sol, setSol] = useState(1000);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!name) return;
-
-    async function fetchPhotos() {
-      setLoading(true);
-      try {
-        const res = await fetch(
-          `${nasaApiBaseUrl}/rovers/${name}/photos?sol=${sol}`
-        );
-        const data = await res.json();
-        setPhotos(data.photos || []);
-      } catch (err) {
-        console.error("Error fetching photos:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchPhotos();
-  }, [name, sol]);
-
-  useEffect(() => {
-    async function loadRovers() {
-      const roverData = await getRovers();
-      setRovers(roverData);
+    (async () => {
+      const data = await getRovers();
+      setRovers(data);
       setLoading(false);
-    }
-    loadRovers();
+    })();
   }, []);
 
   if (loading) {
@@ -69,23 +43,29 @@ export default function Rovers() {
 
   return (
     <Container className="mt-4">
-      <h1 className="mb-4">Mars Raw Image of the Week</h1>
-      <p>
-        Here's the Image of the Week as voted on by the public. Check out the
-        latest raw images below, and "Like" your favorites.
-      </p>
+      <h1 className="mb-4 text-center">Mars Rovers</h1>
+      <h2 className="mb-4 text-center text-bright">
+        Explore NASA’s active Mars rovers and their incredible discoveries.
+      </h2>
 
       <Row>
         {rovers
           .filter((rover) => rover.status === "active")
           .map((rover) => (
             <Col md={4} key={rover.id} className="mb-4 d-flex">
-              <Card className="w-100 rover-card">
+              <Card className="w-100 d-flex flex-column">
+                <Card.Img
+                  variant="top"
+                  src={`https://mars.nasa.gov/msl-raw-images/${rover.name.toLowerCase()}_sample.jpg`}
+                  alt={`${rover.name} Rover`}
+                  style={{ height: "200px", objectFit: "cover" }}
+                  onError={(e) => (e.target.style.display = "none")} // hide broken img
+                />
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="text-center mb-3">
                     {rover.name}
                   </Card.Title>
-                  <Card.Text className="flex-grow-1">
+                  <Card.Text className="flex-grow-1 small">
                     <strong>Launch:</strong> {rover.launch_date} <br />
                     <strong>Landing:</strong> {rover.landing_date} <br />
                     <strong>Status:</strong> {rover.status} <br />

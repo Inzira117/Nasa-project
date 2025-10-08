@@ -26,6 +26,15 @@ code {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
+.main {
+  background-image: url("../src/assets/Mars.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
 .footer {
   background-color: #333;
   color: white;

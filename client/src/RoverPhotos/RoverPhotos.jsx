@@ -19,25 +19,22 @@ export default function RoverPhotos() {
   const { name } = useParams();
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Filters
   const [sol, setSol] = useState(1000);
   const [earthDate, setEarthDate] = useState("");
   const [camera, setCamera] = useState("");
 
-  // Load photos when filters change
   useEffect(() => {
     async function fetchPhotos() {
       setLoading(true);
       try {
-        let url = `${nasaApiBaseUrl}/rovers/${name}/photos?`;
+        const params = new URLSearchParams();
+        if (earthDate) params.append("earth_date", earthDate);
+        else params.append("sol", sol);
+        if (camera) params.append("camera", camera);
 
-        if (earthDate) url += `earth_date=${earthDate}`;
-        else url += `sol=${sol}`;
-
-        if (camera) url += `&camera=${camera}`;
-
-        const res = await fetch(url);
+        const res = await fetch(
+          `${nasaApiBaseUrl}/rovers/${name}/photos?${params}`
+        );
         const data = await res.json();
         setPhotos(data.photos || []);
       } catch (err) {
@@ -52,7 +49,7 @@ export default function RoverPhotos() {
   return (
     <Container fluid className="mt-4">
       <Row>
-        {/* Main Photo Grid */}
+        {/* Main Gallery */}
         <Col md={9}>
           <h2 className="mb-4 text-capitalize">{name} Rover Photos</h2>
           {loading ? (
@@ -70,7 +67,7 @@ export default function RoverPhotos() {
                     <Card.Img
                       variant="top"
                       src={photo.img_src}
-                      alt={`Rover ${name} photo`}
+                      alt={`${name} Rover`}
                       className="rover-img"
                     />
                     <Card.Body>
@@ -87,16 +84,20 @@ export default function RoverPhotos() {
           )}
         </Col>
 
-        {/* Right Sidebar Filters */}
+        {/* Sidebar Filters */}
         <Col md={3}>
-          <Card className="p-3 sticky-top">
-            <h5>Filters</h5>
+          <Card className="p-3 shadow-sm sticky-top">
+            <h5 className="mb-3">Filters</h5>
+
             <Form.Group className="mb-3">
               <Form.Label>Sol (Martian Day)</Form.Label>
               <Form.Control
                 type="number"
-                value={sol}
-                onChange={(e) => setSol(e.target.value)}
+                value={sol || ""}
+                onChange={(e) => {
+                  setSol(e.target.value);
+                  setEarthDate("");
+                }}
                 disabled={!!earthDate}
               />
             </Form.Group>
@@ -106,7 +107,10 @@ export default function RoverPhotos() {
               <Form.Control
                 type="date"
                 value={earthDate}
-                onChange={(e) => setEarthDate(e.target.value)}
+                onChange={(e) => {
+                  setEarthDate(e.target.value);
+                  setSol("");
+                }}
                 disabled={!!sol}
               />
             </Form.Group>
@@ -123,6 +127,10 @@ export default function RoverPhotos() {
                 <option value="MAST">Mast Camera</option>
                 <option value="CHEMCAM">Chemistry and Camera Complex</option>
                 <option value="NAVCAM">Navigation Camera</option>
+                <option value="NAVCAM_LEFT">Navigation Camera - Left</option>
+                <option value="NAVCAM_RIGHT">Navigation Camera - Right</option>
+                <option value="MCZ_LEFT">Mast Camera - Left</option>
+                <option value="MCZ_RIGHT">Mast Camera - Right</option>
               </Form.Select>
             </Form.Group>
 

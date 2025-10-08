@@ -1,5 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Rovers from "./Rover/Rover";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
@@ -9,7 +13,7 @@ export default function App() {
   return (
     <Router>
       <Header />
-      <main>
+      <main className="main">
         <Routes>
           <Route path="/" element={<Navigate to="/rovers" />} />
           <Route path="/rovers" element={<Rovers />} />
