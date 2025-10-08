@@ -52,14 +52,21 @@ export default function Rovers() {
         {rovers
           .filter((rover) => rover.status === "active")
           .map((rover) => (
-            <Col md={4} key={rover.id} className="mb-4 d-flex">
+            <Col
+              md={4}
+              key={rover.id}
+              xs={12}
+              sm={6}
+              lg={4}
+              className="mb-4 d-flex justify-content-center"
+            >
               <Card className="w-100 d-flex flex-column">
                 <Card.Img
                   variant="top"
                   src={`https://mars.nasa.gov/msl-raw-images/${rover.name.toLowerCase()}_sample.jpg`}
                   alt={`${rover.name} Rover`}
                   style={{ height: "200px", objectFit: "cover" }}
-                  onError={(e) => (e.target.style.display = "none")} // hide broken img
+                  onError={(e) => (e.target.style.display = "none")}
                 />
                 <Card.Body className="d-flex flex-column">
                   <Card.Title className="text-center mb-3">

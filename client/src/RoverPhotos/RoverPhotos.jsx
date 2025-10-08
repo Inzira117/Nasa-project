@@ -85,7 +85,7 @@ export default function RoverPhotos() {
         </Col>
 
         {/* Sidebar Filters */}
-        <Col md={3}>
+        <Col xs={12} lg={3} order={{ xs: 1, lg: 2 }}>
           <Card className="p-3 shadow-sm sticky-top">
             <h5 className="mb-3">Filters</h5>
 
