@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# Overview:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app lets users explore photos from active NASA’s Mars rovers like Perseverance and Curiosity.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the server ,then client directory, you can run: npm run dev
 
 ### `npm start`
 
