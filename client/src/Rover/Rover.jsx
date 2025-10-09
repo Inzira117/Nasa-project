@@ -50,7 +50,7 @@ export default function Rovers() {
 
       <Row>
         {rovers
-          .filter((rover) => rover.status === "active")
+          // .filter((rover) => rover.status === "active")
           .map((rover) => (
             <Col
               md={4}
