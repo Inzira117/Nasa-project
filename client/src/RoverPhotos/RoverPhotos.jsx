@@ -27,14 +27,14 @@ export default function RoverPhotos() {
     async function fetchPhotos() {
       setLoading(true);
       try {
-        const params = new URLSearchParams();
-        if (earthDate) params.append("earth_date", earthDate);
-        else params.append("sol", sol);
-        if (camera) params.append("camera", camera);
+        let url = `${nasaApiBaseUrl}/rovers/${name}/photos?`;
 
-        const res = await fetch(
-          `${nasaApiBaseUrl}/rovers/${name}/photos?${params}`
-        );
+        if (earthDate) url += `earth_date=${earthDate}`;
+        else url += `sol=${sol}`;
+
+        if (camera) url += `&camera=${camera}`;
+
+        const res = await fetch(url);
         const data = await res.json();
         setPhotos(data.photos || []);
       } catch (err) {
@@ -44,7 +44,7 @@ export default function RoverPhotos() {
       }
     }
     fetchPhotos();
-  }, [name, sol, earthDate, camera]);
+  }, [name, sol, camera, earthDate]);
 
   return (
     <Container fluid className="mt-4">
